@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechTini S.A.S. | Robótica Educativa</title>
+  
+<style>
+:root{
+  --bg:#050914;--bg2:#081426;--panel:rgba(11,23,42,.78);
+  --line:rgba(66,180,255,.22);--cyan:#20d9ff;--blue:#1688ff;
+  --violet:#8b5cff;--orange:#ffb52e;--green:#19e58b;
+  --text:#eaf6ff;--muted:#91a7bf;
+  --glow:0 0 28px rgba(32,217,255,.16);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--text);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 15% 5%,rgba(22,136,255,.16),transparent 25%),
+    radial-gradient(circle at 85% 15%,rgba(139,92,255,.13),transparent 24%),
+    linear-gradient(180deg,#030711 0%,#071120 48%,#050a14 100%);
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;
+  background-image:linear-gradient(rgba(32,217,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(32,217,255,.06) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,#000,transparent 80%);
+}
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(3,9,20,.78);backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(32,217,255,.16);
+  box-shadow:0 8px 35px rgba(0,0,0,.35);
+}
+.header-wrap{max-width:1220px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.brand h1{
+  margin:0;
+  font-size:1.7rem;
+  letter-spacing:1px;
+  background:linear-gradient(90deg,#ffd21f 0%,#ffd21f 48%,#1688ff 52%,#1688ff 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:0 0 18px rgba(22,136,255,.22);
+}
+.brand p{margin:2px 0;color:var(--muted);font-size:.85rem}
+nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+nav a{color:#cfeaff;padding:8px 9px;border-radius:8px;font-size:.84rem;font-weight:700;transition:.2s}
+nav a:hover{color:#fff;background:rgba(32,217,255,.08);box-shadow:inset 0 0 15px rgba(32,217,255,.06)}
+button{font:inherit}
+.cart-btn{
+  border:1px solid rgba(32,217,255,.45)!important;border-radius:10px;
+  padding:10px 15px;background:linear-gradient(135deg,#123c72,#0b71b8)!important;
+  color:#fff!important;font-weight:900;cursor:pointer;
+  box-shadow:0 0 20px rgba(32,217,255,.17),inset 0 0 15px rgba(32,217,255,.08);
+}
+.cart-btn:hover{box-shadow:0 0 28px rgba(32,217,255,.3);transform:translateY(-2px)}
+
+main{overflow:hidden}
+.hero{
+  max-width:1220px;margin:38px auto 28px;padding:0 20px;
+  display:grid;grid-template-columns:1.08fr .92fr;gap:22px;
+}
+.card{
+  background:linear-gradient(145deg,rgba(13,29,51,.84),rgba(7,17,32,.9));
+  border:1px solid var(--line);border-radius:20px;
+  box-shadow:var(--glow),0 20px 60px rgba(0,0,0,.24);
+  transition:.25s;
+}
+.card:hover{transform:translateY(-3px);border-color:rgba(32,217,255,.4);box-shadow:0 0 34px rgba(32,217,255,.14),0 24px 65px rgba(0,0,0,.3)}
+.hero .card:first-child{
+  padding:44px;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 100% 0,rgba(32,217,255,.13),transparent 35%),linear-gradient(145deg,rgba(12,30,55,.95),rgba(5,13,26,.96));
+}
+.hero .card:first-child:after{
+  content:"";position:absolute;width:330px;height:330px;border:1px solid rgba(32,217,255,.15);
+  border-radius:50%;right:-180px;bottom:-190px;box-shadow:0 0 70px rgba(32,217,255,.08);
+}
+.badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(32,217,255,.08);color:#7deaff;
+  border:1px solid rgba(32,217,255,.35);border-radius:999px;
+  padding:7px 13px;font-weight:900;font-size:.8rem;
+  box-shadow:0 0 20px rgba(32,217,255,.08);
+}
+.hero h2{
+  margin:16px 0 14px;color:#fff;
+  font-size:clamp(2.2rem,4.5vw,3.7rem);
+  line-height:1.02;letter-spacing:-1.7px;
+  text-shadow:0 0 28px rgba(32,217,255,.18);
+}
+.hero h2:after{
+  content:"";display:block;width:90px;height:4px;border-radius:10px;
+  margin-top:20px;background:linear-gradient(90deg,var(--cyan),var(--violet));
+  box-shadow:0 0 15px rgba(32,217,255,.7);
+}
+.hero p{color:var(--muted)}
+.hero .card:first-child p strong{color:#eaf6ff}
+.hero .card:nth-child(2){padding:10px;overflow:hidden}
+.hero img{width:100%;height:100%;min-height:360px;display:block;object-fit:cover;border-radius:14px;filter:saturate(1.05);box-shadow:inset 0 0 30px rgba(32,217,255,.08)}
+
+section{max-width:1220px;margin:34px auto;padding:0 20px}
+section>h3{color:#fff;font-size:1.9rem;margin:0 0 8px;letter-spacing:-.5px;text-shadow:0 0 18px rgba(32,217,255,.12)}
+section>p{color:var(--muted)}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+#empresa .card,#certificados .card,#contacto .card{padding:28px}
+#empresa h4,#certificados h4{color:#62dfff;font-size:1.1rem;margin:0 0 8px}
+.tag{
+  display:inline-block;padding:6px 11px;margin:4px 4px 4px 0;border-radius:999px;
+  background:rgba(32,217,255,.06);border:1px solid rgba(32,217,255,.18);
+  color:#a9eaff;font-size:.84rem;font-weight:800;
+}
+#empresa ul,#certificados ul,#productos ul{color:#a2b3c7}
+#productos .grid-2>.card{
+  padding:30px;position:relative;overflow:hidden;
+  background:linear-gradient(145deg,rgba(10,27,48,.96),rgba(5,14,27,.96));
+}
+#productos .grid-2>.card:before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--cyan),var(--blue),var(--violet),var(--orange));
+  box-shadow:0 0 18px rgba(32,217,255,.55);
+}
+.product-title{font-size:1.4rem;color:#fff;margin:10px 0 8px}
+.price{
+  display:inline-block;margin:7px 0 12px;padding:9px 14px;border-radius:10px;
+  background:rgba(25,229,139,.08);color:#5dffb5;
+  border:1px solid rgba(25,229,139,.3);font-size:1.36rem;font-weight:900;
+  box-shadow:0 0 18px rgba(25,229,139,.07);
+}
+.shop-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid rgba(66,180,255,.14)}
+.qty-input{width:76px;padding:11px;border:1px solid rgba(66,180,255,.25);border-radius:9px;background:#071425;color:#fff;font-weight:800;text-align:center}
+.buy-btn{
+  border:1px solid rgba(32,217,255,.4);border-radius:9px;padding:11px 17px;color:#fff;
+  background:linear-gradient(135deg,#0b65b8,#16439b);font-weight:900;cursor:pointer;
+  box-shadow:0 0 18px rgba(32,217,255,.12);transition:.2s;
+}
+.buy-btn:hover{transform:translateY(-2px);box-shadow:0 0 27px rgba(32,217,255,.28)}
+.cart-panel{
+  display:none;position:fixed;inset:0;z-index:100;
+  background:rgba(1,5,13,.76);backdrop-filter:blur(9px);
+  align-items:center;justify-content:center;padding:18px;
+}
+.cart-panel.open{display:flex}
+.cart-box{
+  width:min(650px,100%);max-height:92vh;overflow:auto;padding:25px;
+  background:linear-gradient(145deg,#0b1d34,#050e1b);
+  border:1px solid rgba(32,217,255,.3);border-radius:22px;
+  box-shadow:0 0 45px rgba(32,217,255,.13),0 30px 90px rgba(0,0,0,.5);
+}
+.close-cart{float:right;border:1px solid rgba(66,180,255,.18);width:38px;height:38px;border-radius:50%;background:#102239;color:#cfeaff;font-size:24px;cursor:pointer}
+.cart-box h2{color:#fff}.cart-list{list-style:none;padding:0;margin:10px 0}.cart-list li{padding:14px 0;border-bottom:1px solid rgba(66,180,255,.13)}.cart-list button{border:0;border-radius:7px;padding:5px 9px;background:#32141a;color:#ff9da5;cursor:pointer;margin-top:6px}
+.cart-total{padding:13px;border-radius:10px;background:rgba(25,229,139,.08);border:1px solid rgba(25,229,139,.25);color:#62ffb9;font-size:1.25rem;font-weight:900;margin:15px 0}
+.order-form label{display:block;font-weight:800;margin-top:11px;color:#cfe7fa}.order-form input,.order-form select,.order-form textarea{width:100%;padding:12px;margin-top:5px;border-radius:9px;border:1px solid rgba(66,180,255,.2);background:#061321;color:#fff;font:inherit}.order-form input:focus,.order-form select:focus,.order-form textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(32,217,255,.08)}.order-form textarea{min-height:90px;resize:vertical}.send-order{width:100%;margin-top:17px;padding:13px;border:1px solid rgba(25,229,139,.35);border-radius:10px;color:#fff;background:linear-gradient(135deg,#087f4b,#075c3a);font-weight:900;cursor:pointer;box-shadow:0 0 22px rgba(25,229,139,.1)}
+.order-message{display:none;margin-top:12px;padding:12px;border-radius:9px;background:rgba(25,229,139,.08);border-left:3px solid var(--green)}
+footer{margin-top:60px;background:#030914;border-top:1px solid rgba(32,217,255,.14);color:#91a7bf}
+.footer-wrap{max-width:1220px;margin:auto;padding:30px 20px;display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}.footer-wrap strong{color:#fff}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.hero img{min-height:280px}.grid-3{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.header-wrap{padding:11px 13px}.brand h1{font-size:1.35rem}.brand p{font-size:.76rem}nav{width:100%;justify-content:center}nav a{font-size:.76rem;padding:6px 4px}.cart-btn{width:100%}.hero{margin-top:20px;padding:0 13px}.hero .card:first-child{padding:29px 22px}.hero h2{font-size:2.2rem}section{padding:0 13px}.grid-2,.grid-3{grid-template-columns:1fr}#productos .grid-2>.card{padding:27px 20px}}
+</style>
+</head>
+<body>
+  <header>
+    <div class="header-wrap">
+      <div class="brand">
+        <h1>TechTini S.A.S.</h1>
+        <p>Pequeñas mentes, grandes innovaciones</p>
+      </div>
+      <nav>
+        <a href="#empresa">Empresa</a>
+        <a href="#productos">Productos</a>
+        <a href="#certificados">Certificados</a>
+        <a href="#contacto">Contacto</a>
+        <button class="cart-btn" onclick="abrirCarrito()">🛒 Carrito (<span id="cartCount">0</span>)</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <article class="card">
+        <span class="badge">Robotica Educativa</span>
+        <h2>Formamos el futuro con tecnologia accesible</h2>
+        <p>
+          En TechTini diseniamos, producimos y comercializamos kits de robotica basica
+          para ninhos de primaria. Nuestro objetivo es fortalecer la creatividad, el
+          pensamiento logico y el interes por la ciencia desde temprana edad.
+        </p>
+        <p><strong>Forma juridica:</strong> Sociedad por Acciones Simplificada (S.A.S.)</p>
+        <p><strong>NIT:</strong> 9021102332</p>
+      </article>
+      <article class="card">
+        <img src="assets/techtini/image31.png" alt="Presentacion visual de TechTini">
+      </article>
+    </section>
+
+    <section id="empresa">
+      <h3>Informacion corporativa</h3>
+      <div class="grid-2">
+        <article class="card">
+          <h4>Mision</h4>
+          <p>Ofrecer kits de robotica educativa de bajo costo para aprender tecnologia de forma divertida y practica.</p>
+          <h4>Vision 2027</h4>
+          <p>Ser una empresa reconocida a nivel nacional en kits de robotica educativa accesibles para instituciones y hogares.</p>
+        </article>
+        <article class="card">
+          <h4>Valores</h4>
+          <span class="tag">Innovacion</span>
+          <span class="tag">Creatividad</span>
+          <span class="tag">Responsabilidad</span>
+          <span class="tag">Trabajo en equipo</span>
+          <span class="tag">Compromiso educativo</span>
+          <h4 style="margin-top:14px;">Equipo fundador</h4>
+          <ul>
+            <li>Samy Luna Franco Duarte - Gerente General</li>
+            <li>Johan Stiven Vega Vega - Produccion</li>
+            <li>Sara Sofia Vergara Ortiz - Marketing y Ventas</li>
+            <li>Samuel Alejandro Pinzon - Finanzas</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="productos">
+      <h3>🛍️ Compra nuestros productos</h3>
+      <p>Selecciona la cantidad y agrega el producto al carrito para realizar tu pedido.</p>
+
+      <div class="grid-2">
+        <article class="card">
+          <div style="font-size:2.4rem;margin-top:5px;">🚦</div><h4 class="product-title">Kit de Semáforo Inteligente</h4>
+          <p>Incluye modulo semaforo LED, Arduino, protoboard y cables jumper.</p>
+          <p class="price">$94.250 COP</p>
+          <h5>Aplicaciones:</h5>
+          <ul>
+            <li>Introduccion a sensores y programacion.</li>
+            <li>Proyectos escolares de automatizacion basica.</li>
+            <li>Aprendizaje practico en equipo.</li>
+          </ul>
+          <div class="shop-actions">
+            <label for="cantidadSemaforo"><strong>Cantidad:</strong></label>
+            <input id="cantidadSemaforo" class="qty-input" type="number" min="1" value="1">
+            <button class="buy-btn" onclick="agregarAlCarrito('Kit de Semáforo Inteligente',94250,'cantidadSemaforo')">
+              Agregar al carrito
+            </button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div style="font-size:2.4rem;margin-top:5px;">💡</div><h4 class="product-title">Kit de Luces LED Programables</h4>
+          <p>Incluye modulo LED RGB, Arduino Nano, protoboard y conexiones.</p>
+          <p class="price">$84.964 COP</p>
+          <h5>Aplicaciones:</h5>
+          <ul>
+            <li>Introduccion al diseno de efectos de luz.</li>
+            <li>Practicas de logica y creatividad.</li>
+            <li>Experimentacion en casa o colegio.</li>
+          </ul>
+          <div class="shop-actions">
+            <label for="cantidadLed"><strong>Cantidad:</strong></label>
+            <input id="cantidadLed" class="qty-input" type="number" min="1" value="1">
+            <button class="buy-btn" onclick="agregarAlCarrito('Kit de Luces LED Programables',84964,'cantidadLed')">
+              Agregar al carrito
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <article class="card" style="margin-top:16px;">
+        <h4>Materiales y herramientas frecuentes</h4>
+        <p>Arduino UNO/Nano, sensores de luz/sonido/proximidad, chasis estructurales, LEDs, resistencias, cautin, pinzas y cable USB.</p>
+      </article>
+    </section>
+
+    <section id="certificados">
+      <h3>Certificados y documentos legales</h3>
+      <div class="grid-2">
+        <article class="card">
+          <h4>Documentacion principal</h4>
+          <ul>
+            <li>Constitucion de sociedad TechTini S.A.S.</li>
+            <li>Registro tributario y obligaciones DIAN.</li>
+            <li>Tramites de Camara de Comercio (RUT, RUES).</li>
+            <li>Documentacion de seguridad y cumplimiento.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h4>Normativa aplicada</h4>
+          <ul>
+            <li>Codigo de Comercio (Decreto 410 de 1971).</li>
+            <li>Ley 1258 de 2008 (S.A.S.).</li>
+            <li>Ley 590 de 2000 (Mipymes).</li>
+            <li>Ley 1480 de 2011 (Estatuto del Consumidor).</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <h3>Contacto</h3>
+      <div class="card">
+        <p><strong>Direccion:</strong> Carrera 25 #53b-32 sur, Bogota D.C.</p>
+        <p><strong>Telefono:</strong> 3115594932</p>
+        <p><strong>Ubicacion principal:</strong> Colegio Ciudad de Bogota</p>
+        <p><strong>Ambito de operacion:</strong> Nacional (Colombia)</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-wrap">
+      <div>
+        <strong>TechTini S.A.S.</strong><br>
+        Kit de Robotica Basica Educativa para Ninhos
+      </div>
+      <div>
+        Sitio informativo institucional basado en el proyecto empresarial y academico 2026.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Ventana del carrito y formulario de compra -->
+  <div id="cartPanel" class="cart-panel">
+    <div class="cart-box">
+      <button class="close-cart" onclick="cerrarCarrito()">×</button>
+      <h2>🛒 Carrito de compra</h2>
+      <ul id="cartList" class="cart-list"></ul>
+      <div id="cartTotal" class="cart-total">$0 COP</div>
+
+      <h3>Datos del comprador</h3>
+      <p><strong>Importante:</strong> al enviar el pedido, los datos se registraran en la hoja de Google Sheets mediante Google Apps Script.</p>
+
+      <!-- Cambia esta URL por la URL /exec de tu Apps Script -->
+      <form id="pedidoForm" class="order-form"
+            action="https://script.google.com/macros/s/AKfycbxGvIFX1eWYwCob-Zg1qLmddGPlnjNGvXdVqVrviEKROyzrP--vV6Lwhw6nptTee1dn/exec"
+            method="POST" target="pedidoFrame" onsubmit="prepararPedido()">
+
+        <input type="hidden" name="pedido" id="pedido">
+        <input type="hidden" name="detalle" id="detalle">
+        <input type="hidden" name="total" id="total">
+
+        <label>Nombre completo</label>
+        <input name="cliente" required placeholder="Nombre y apellido">
+
+        <label>Telefono</label>
+        <input name="telefono" type="tel" required placeholder="Ej. 3111234567">
+
+        <label>Direccion de entrega</label>
+        <textarea name="direccion" required placeholder="Direccion, barrio y ciudad"></textarea>
+
+        <label>Metodo de pago</label>
+        <select name="pago" required>
+          <option value="">Selecciona una opcion</option>
+          <option>Nequi</option>
+          <option>Daviplata</option>
+          <option>Transferencia bancaria</option>
+          <option>Pago contra entrega</option>
+        </select>
+
+        <button class="send-order" type="submit">✅ Enviar pedido</button>
+      </form>
+
+      <iframe name="pedidoFrame" id="pedidoFrame" style="display:none"></iframe>
+      <div id="orderMessage" class="order-message">
+        <strong>Pedido enviado.</strong> El pedido fue enviado para registrarse en Google Sheets.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const carrito = [];
+
+    function dinero(valor) {
+      return new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        maximumFractionDigits: 0
+      }).format(valor);
+    }
+
+    function agregarAlCarrito(nombre, precio, inputId) {
+      const input = document.getElementById(inputId);
+      const cantidad = Math.max(1, parseInt(input.value || '1', 10));
+
+      const producto = carrito.find(p => p.nombre === nombre);
+
+      if (producto) {
+        producto.cantidad += cantidad;
+      } else {
+        carrito.push({ nombre, precio: Number(precio), cantidad });
+      }
+
+      actualizarCarrito();
+      abrirCarrito();
+    }
+
+    function eliminarProducto(indice) {
+      carrito.splice(indice, 1);
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById('cartList');
+      const totalElemento = document.getElementById('cartTotal');
+      const contador = document.getElementById('cartCount');
+
+      lista.innerHTML = '';
+
+      let total = 0;
+      let cantidadTotal = 0;
+
+      if (carrito.length === 0) {
+        lista.innerHTML = '<li>El carrito esta vacio.</li>';
+      }
+
+      carrito.forEach((producto, indice) => {
+        const subtotal = producto.precio * producto.cantidad;
+        total += subtotal;
+        cantidadTotal += producto.cantidad;
+
+        const li = document.createElement('li');
+        li.innerHTML =
+          '<strong>' + producto.nombre + '</strong><br>' +
+          'Cantidad: ' + producto.cantidad + '<br>' +
+          'Subtotal: <strong>' + dinero(subtotal) + '</strong> ' +
+          '<button type="button" onclick="eliminarProducto(' + indice + ')">Eliminar</button>';
+
+        lista.appendChild(li);
+      });
+
+      totalElemento.textContent = dinero(total) + ' COP';
+      contador.textContent = cantidadTotal;
+    }
+
+    function abrirCarrito() {
+      actualizarCarrito();
+      document.getElementById('cartPanel').classList.add('open');
+    }
+
+    function cerrarCarrito() {
+      document.getElementById('cartPanel').classList.remove('open');
+    }
+
+    function prepararPedido() {
+      if (carrito.length === 0) {
+        alert('Agrega al menos un producto al carrito.');
+        return false;
+      }
+
+      const numeroPedido = 'TT-' + Date.now();
+      const total = carrito.reduce(
+        (suma, producto) => suma + Number(producto.precio) * producto.cantidad, 0
+      );
+
+      const detalle = carrito.map(producto =>
+        producto.nombre +
+        ' | Cantidad: ' + producto.cantidad +
+        ' | Precio: ' + Number(producto.precio) +
+        ' | Subtotal: ' + (Number(producto.precio) * producto.cantidad)
+      ).join('\n');
+
+      document.getElementById('pedido').value = numeroPedido;
+      document.getElementById('detalle').value = detalle;
+      document.getElementById('total').value = total;
+
+      const mensaje = document.getElementById('orderMessage');
+      mensaje.innerHTML = '<strong>✅ Pedido enviado.</strong> Se está registrando en Google Sheets.';
+      mensaje.style.display = 'block';
+
+      setTimeout(() => {
+        carrito.length = 0;
+        actualizarCarrito();
+      }, 1200);
+
+      return true;
+    }
+
+    actualizarCarrito();
+  </script>
+
+</body>
+</html>
